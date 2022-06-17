@@ -1,0 +1,18 @@
+<div id="header">
+    <div id="logo">
+        <h1>blo<a href="/">g</a></h1>
+        <div class="slogan">Cool slogan goes here!</div>
+    </div>
+    <div id="menubar">
+        <ul id="menu">
+            <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+            <li class="{% if request.path == '/' %}current{% endif %}"><a href="/">Главная</a></li>
+
+            <li class="{% if request.path == '/examples' %}current{% endif %}"><a href="/examples">Примеры</a></li>
+            <li class="{% if request.path == '/page' %}current{% endif %}"><a href="/page">Страница</a></li>
+            <li class="{% if request.path == '/another-page' %}current{% endif %}"><a href="/another-page">Другая</a>
+            </li>
+            <li class="{% if request.path == '/contact' %}current{% endif %}"><a href="/contact">Контакты</a></li>
+        </ul>
+    </div>
+</div>
