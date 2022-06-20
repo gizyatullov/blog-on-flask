@@ -6,12 +6,11 @@ main = Blueprint('main', __name__)
 
 
 @main.route('/')
-@main.route('/index')
 def index():
     context = {
         'page_title': 'главная',
     }
-    return render_template('index.html', context=context)
+    return render_template('index.html', **context)
 
 
 @main.route('/examples')
@@ -35,7 +34,7 @@ def another_page():
     context = {
         'page_title': 'еще одна страница',
     }
-    return render_template('another_page.html', context=context)
+    return render_template('register.html', context=context)
 
 
 @main.route('/contact')
