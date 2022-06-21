@@ -14,14 +14,14 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField('Подтвердить пароль', validators=(DataRequired(), EqualTo('password'),))
     submit = SubmitField('Зарегистрироваться')
 
-    @staticmethod
-    def validate_username(username):
+    # @staticmethod
+    def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user:
             raise ValidationError(f'Логин «{username.data}» занят. Пожалуйста, выберите другой.xD')
 
-    @staticmethod
-    def validate_email(email):
+    # @staticmethod
+    def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError(f'Этот email «{email.data}» занят. Пожалуйста, выберите другой.xD')
@@ -40,15 +40,15 @@ class UpdateAccountForm(FlaskForm):
     picture = FileField('Обновить фото профиля', validators=(FileAllowed(('jpg', 'png',)),))
     submit = SubmitField('Обновить')
 
-    @staticmethod
-    def validate_username(username):
+    # @staticmethod
+    def validate_username(self, username):
         if not username.data == current_user.username:
             user = User.query.filter_by(username=username.data).first()
             if user:
                 raise ValidationError(f'Логин «{username.data}» занят. Пожалуйста, выберите другой.xD')
 
-    @staticmethod
-    def validate_email(email):
+    # @staticmethod
+    def validate_email(self, email):
         if not email.data == current_user.email:
             user = User.query.filter_by(email=email.data).first()
             if user:
@@ -59,8 +59,8 @@ class RequestResetForm(FlaskForm):
     email = StringField('Email', validators=(DataRequired(), Email(),))
     submit = SubmitField('Изменить пароль')
 
-    @staticmethod
-    def validate_email(email):
+    # @staticmethod
+    def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user is None:
             raise ValidationError(f'Аккаунта с email «{email.data}» не существует.')

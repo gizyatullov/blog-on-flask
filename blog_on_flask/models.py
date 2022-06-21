@@ -5,6 +5,17 @@ from flask_login import UserMixin
 from blog_on_flask import db, login_manager
 
 
+def uuid4_string(func):
+    def wrapper(*args, **kwargs):
+        uuid4_to_string = str(func(*args, **kwargs))
+        return uuid4_to_string
+
+    return wrapper
+
+
+uuid4 = uuid4_string(uuid4)
+
+
 @login_manager.user_loader
 def load_user(user_uid):
     return User.query.get(user_uid)
@@ -17,6 +28,12 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(64), nullable=True, default='default.png')
     password = db.Column(db.String(64), nullable=False)
     posts = db.relationship('Post', backref='author', lazy=True)
+
+    def get_id(self):
+        try:
+            return self.uid
+        except AttributeError:
+            raise NotImplementedError("No `uid` attribute - override `get_id`") from None
 
     def __repr__(self):
         return f'Пользователь с логином: {self.username} | email: {self.email}'
