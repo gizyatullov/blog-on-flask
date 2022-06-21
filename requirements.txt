@@ -7,3 +7,5 @@ Flask-Migrate==3.1.0
 Flask-SQLAlchemy==2.5.1
 Flask-WTF==1.0.1
 wheel==0.37.1
+Pillow==9.1.1
+email-validator==1.2.1
