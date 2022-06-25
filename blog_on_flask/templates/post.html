@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {#<img class="rounded-circle article-img" style="margin-right: 5px;" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">#}
+
+    <a class="mr-2"
+       href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{{ post.title }}</h4>
+            <small>Опубликовано {{ post.date_posted.strftime('%A, %d %B %Y %I:%M %p') }}</small>
+            <br>
+            <br>
+            <p class="card-text">{{ post.content }}</p>
+        </div>
+
+        {% if post.author == current_user %}
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.update_post', post_uid=post.uid) }}">Обновить</a>
+            <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">Удалить
+            </button>
+        {% endif %}
+    </div>
+
+    <div class="modal" tabindex="-1" id="deleteModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Удалить пост «{{ post.title }}»?</p>
+                </div>
+                <div class="modal-footer">
+                    <form method="post" action="{{ url_for('posts.delete_post', post_uid=post.uid) }}">
+                        <button type="submit" class="btn btn-primary">Удалить</button>
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

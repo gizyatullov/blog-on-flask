@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+
+        {{ form.title.label(class="form-control-label") }}
+        {% if form.title.errors %}
+            {{ form.title(class="form-control form-control-lg is-invalid") }}
+            {% for error in form.title.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        {% else %}
+            {{ form.title(class="form-control form-control-lg") }}
+        {% endif %}
+
+        {{ form.content.label(class="form-control-label") }}
+        {% if form.content.errors %}
+            {{ form.content(class="form-control form-control-lg is-invalid") }}
+            {% for error in form.content.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        {% else %}
+            {{ form.content(class="form-control form-control-lg") }}
+        {% endif %}
+
+        <br>
+        {{ form.submit(class="btn btn-outline-info") }}
+        <br>
+    </form>
+{% endblock %}
