@@ -9,6 +9,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1"/>
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz"/>
@@ -220,7 +221,7 @@
         }
 
         #site_content {
-            width: 950px;
+            width: 1200px;
             overflow: hidden;
             margin: 0 auto 0 auto;
             padding: 0;
@@ -261,8 +262,8 @@
         }
 
         #content {
-            text-align: left;
-            width: 630px;
+            text-align: center;
+            width: 950px;
             padding: 25px 0 5px 25px;
             margin: 0;
         }
@@ -421,7 +422,6 @@
     {% endwith %}
 
     <div id="site_content">
-        {% include 'includes/include__sidebar.html' %}
 
         <div id="content">
             <!-- insert the page content here -->

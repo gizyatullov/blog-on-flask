@@ -36,7 +36,7 @@ def register():
 @users.route('/login', methods=('GET', 'POST'))
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('main.index'))
+        return redirect(url_for('posts.all_post'))
 
     form = LoginForm()
 
@@ -44,7 +44,9 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
-            return redirect(url_for('main.index'))
+
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('posts.all_post'))
         else:
             flash('Войти не удалось. Пожалуйста, проверьте email и пароль', 'внимание')
 
@@ -92,3 +94,19 @@ def account():
 def logout():
     logout_user()
     return redirect(url_for('main.index'))
+
+
+@users.route('/user/<string:username>')
+@login_required
+def user_posts(username: str):
+    page = request.args.get('page', 1, type=int)
+    user = User.query.filter_by(username=username).first_or_404()
+    posts = Post.query.filter_by(author=user) \
+        .order_by(Post.date_posted.desc()) \
+        .paginate(page=page, per_page=5)
+    context = {
+        'page_title': f'Посты пользователя: {user.username}',
+        'posts': posts,
+        'user': user,
+    }
+    return render_template('user-posts.html', **context)
