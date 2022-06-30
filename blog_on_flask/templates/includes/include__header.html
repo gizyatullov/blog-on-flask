@@ -30,8 +30,8 @@
             {% endif %}
 
 
-            <li class="{% if request.path == url_for('main.contact') %}current{% endif %}"><a
-                    href="{{ url_for('main.contact') }}">Контакты</a></li>
+            <li class="{% if request.path == url_for('contacts.index') %}current{% endif %}"><a
+                    href="{{ url_for('contacts.index') }}">Контакты</a></li>
         </ul>
     </div>
 </div>

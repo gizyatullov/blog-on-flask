@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="post">
+        {{ form.hidden_tag() }}
+        {% if form.email.errors %}
+            <div class="mb-3">
+            <label for="{{ form.email.label.field_id }}" class="form-label">Email address</label>
+            {{ form.email(class="form-control form-control-lg") }}
+            {% for error in form.email.errors %}
+                <div id="emailHelp" class="form-text">{{ error }}</div>
+            {% endfor %}
+        {% else %}
+            <label for="{{ form.email.label.field_id }}" class="form-label">Email address</label>
+            {{ form.email(class="form-control form-control-lg") }}
+        {% endif %}
+        </div>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+{% endblock %}

@@ -37,9 +37,9 @@ def another_page():
     return render_template('register.html', context=context)
 
 
-@main.route('/contact')
-def contact():
-    context = {
-        'page_title': 'контакты',
-    }
-    return render_template('contact.html', context=context)
+# @main.route('/contact')
+# def contact():
+#     context = {
+#         'page_title': 'контакты',
+#     }
+#     return render_template('contact.html', context=context)

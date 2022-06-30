@@ -23,15 +23,17 @@
         {% else %}
             {{ form.password(class="form-control form-control-lg") }}
         {% endif %}
-
-        {{ form.remember(class="form-check-input") }}
-        {{ form.remember.label(class="form-check-label") }}
         <br>
         {{ form.submit(class="btn btn-outline-info") }}
         <br>
         <div>
             <small style="font-size: 15px; font-weight: 500;">
                 Нужен аккаунт? <a class="ml-2" href="{{ url_for('users.register') }}">Зарегистрируйтесь</a>
+            </small>
+        </div>
+        <div>
+            <small style="font-size: 15px; font-weight: 500;">
+                Забыли пароль? <a class="ml-2" href="{{ url_for('users.reset_request') }}">Восстановить</a>
             </small>
         </div>
     </form>
