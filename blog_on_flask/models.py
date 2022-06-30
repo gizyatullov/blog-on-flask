@@ -3,6 +3,8 @@ from uuid import uuid4
 
 from flask_login import UserMixin
 from blog_on_flask import db, login_manager
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from flask import current_app
 
 
 def uuid4_string(func):
@@ -37,6 +39,19 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return f'Пользователь с логином: {self.username} | email: {self.email}'
+
+    def get_reset_token(self, expires_sec=3600):
+        serializer = Serializer(current_app.config['SECRET_KEY'], expires_sec)
+        return serializer.dumps({'user_uid': self.uid}).decode(encoding='utf-8')
+
+    @staticmethod
+    def verify_reset_token(token):
+        serializer = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            user_uid = serializer.loads(token)['user_uid']
+        except Exception:
+            return None
+        return User.query.get(user_uid)
 
 
 class Post(db.Model):
