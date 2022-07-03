@@ -2,7 +2,7 @@
 
 {% block content %}
     {% for post in posts.items %}
-        <img src="{{ url_for('static', filename='profile_pics/'+post.author.image_file) }}" alt="#">
+        <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" alt="#">
         <a href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
 
         <div class="card">
@@ -11,6 +11,9 @@
                                           class="title">{{ post.title }}</a></h4>
                 <small>Опубликовано {{ post.date_posted.strftime('%A, %d %B %Y %I:%M %p') }}</small>
                 <br>
+                {% if post.photo %}
+                    <img src="{{ url_for('static', filename='post_photos/' + post.photo) }}" alt="#">
+                {% endif %}
                 <br>
                 <p class="card-text">{{ post.content }}</p>
             </div>
