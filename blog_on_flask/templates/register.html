@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>Регистрация</h1>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
 
         {{ form.username.label(class="form-control-label") }}

@@ -15,6 +15,9 @@
                 </h4>
                 <small>Опубликовано {{ post.date_posted.strftime('%A, %d %B %Y %I:%M %p') }}</small>
                 <br>
+                {% if post.photo %}
+                    <img src="{{ url_for('static', filename='post_photos/' + post.photo) }}" alt="#">
+                {% endif %}
                 <br>
                 <p class="card-text">{{ post.content }}</p>
             </div>

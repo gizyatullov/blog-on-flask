@@ -6,7 +6,7 @@
     <h2 class="account-heading">{{ current_user.username }}</h2>
     <p class="text-secondary">{{ current_user.email }}</p>
 
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
 
         {{ form.username.label(class="form-control-label") }}

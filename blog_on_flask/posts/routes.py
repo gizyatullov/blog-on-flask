@@ -4,6 +4,7 @@ from flask_login import current_user, login_required
 from blog_on_flask import db
 from blog_on_flask.models import Post
 from .forms import PostForm
+from .utils import save_photo_post
 
 posts = Blueprint('posts', __name__)
 
@@ -26,6 +27,8 @@ def new_post():
     form = PostForm()
     if form.validate_on_submit():
         post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        if form.photo.data:
+            post.photo = save_photo_post(form.photo.data)
         db.session.add(post)
         db.session.commit()
         flash(message='Ваш пост создан!', category='success')
