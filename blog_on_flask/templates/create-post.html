@@ -35,6 +35,14 @@
         {% endif %}
         <br>
 
+        {{ form.photo.label() }}
+        {{ form.photo(class="form-control-file") }}
+        {% if form.photo.errors %}
+            {% for error in form.photo.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+
         <br>
         {{ form.submit(class="btn btn-outline-info") }}
         <br>
