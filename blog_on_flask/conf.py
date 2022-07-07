@@ -9,4 +9,4 @@ class Conf:
     MAIL_USERNAME = 'Berzerk6688@yandex.ru'
     MAIL_PASSWORD = 'nhvbqhajnyzmpzsp'
 
-    MY_EMAIL = 'EricGizyatullov@yandex.ru'
+    MY_EMAIL = 'evyrfgp@gmail.com'
