@@ -4,11 +4,11 @@
     <script type="text/javascript" charset="utf-8" defer
             src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Acb6f8326d4998f3920f2290739b4ea521f874baa6f3cca1ed03696e3b91d8169&amp;width=650&amp;height=400&amp;lang=ru_RU&amp;scroll=true"></script>
     <br>
-    <h1>Напишите мне</h1>
+    <p class="fs-3">Напишите мне</p>
     <form method="post">
         {{ form.hidden_tag() }}
 
-        {{ form.your_name.label(class="form-control-label") }}
+        {{ form.your_name.label(class="form-control-label fs-4") }}
         {% if form.your_name.errors %}
             {{ form.your_name(class="form-control form-control-lg is-invalid") }}
             {% for error in form.your_name.errors %}
@@ -18,7 +18,7 @@
             {{ form.your_name(class="form-control form-control-lg") }}
         {% endif %}
 
-        {{ form.your_email.label(class="form-control-label") }}
+        {{ form.your_email.label(class="form-control-label fs-4") }}
         {% if form.your_email.errors %}
             {{ form.your_email(class="form-control form-control-lg is-invalid") }}
             {% for error in form.your_email.errors %}
@@ -28,7 +28,7 @@
             {{ form.your_email(class="form-control form-control-lg") }}
         {% endif %}
 
-        {{ form.message.label(class="form-control-label") }}
+        {{ form.message.label(class="form-control-label fs-4") }}
         {% if form.message.errors %}
             {{ form.message(class="form-control form-control-lg is-invalid") }}
             {% for error in form.message.errors %}

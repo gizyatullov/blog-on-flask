@@ -2,36 +2,39 @@
 
 {% block content %}
     {% for post in posts.items %}
-        <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" alt="#">
-        <a href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
-
-        <div class="card">
+        <div class="card" style="width: 18rem;">
+            {% if post.photo %}
+                <img src="{{ url_for('static', filename='post_photos/' + post.photo) }}" class="card-img-top" alt="...">
+            {% endif %}
             <div class="card-body">
-                <h4 class="card-title"><a href="{{ url_for('posts.post', post_uid=post.uid) }}"
-                                          class="title">{{ post.title }}</a></h4>
-                <small>Опубликовано {{ post.date_posted.strftime('%A, %d %B %Y %I:%M %p') }}</small>
-                <br>
-                {% if post.photo %}
-                    <img src="{{ url_for('static', filename='post_photos/' + post.photo) }}" alt="#">
-                {% endif %}
-                <br>
-                <p class="card-text">{{ post.content }}</p>
+                <h5 class="card-title">{{ post.title }}</h5>
+
+                <p class="card-text">{{ post.content|truncate(length=255, killwords=True) }}</p>
+
+                <p class="card-text">
+                    <a href="{{ url_for('users.user_posts', username=post.author.username) }}">Все посты
+                        автора {{ post.author.username }}</a><br>
+                    <span>Опубликовано {{ post.date_posted.strftime('%A, %d %B %Y %I:%M %p') }}</span>
+                </p>
+
+                <a href="{{ url_for('posts.post', post_uid=post.uid) }}" class="btn btn-primary">Подробнее</a>
             </div>
         </div>
+        <br>
     {% endfor %}
 
     {% if posts.total > posts.per_page %}
         {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
             {% if page_num %}
                 {% if posts.page == page_num %}
-                    <a class="btn btn-success mb-4"
+                    <a class="btn btn-info mb-4"
                        href="{{ url_for('posts.all_post', page=page_num) }}">{{ page_num }}</a>
                 {% else %}
-                    <a class="btn btn-outline-success mb-4"
+                    <a class="btn btn-outline-info mb-4"
                        href="{{ url_for('posts.all_post', page=page_num) }}">{{ page_num }}</a>
                 {% endif %}
             {% else %}
-                ...
+                <span class="text-info">...</span>
             {% endif %}
         {% endfor %}
     {% endif %}

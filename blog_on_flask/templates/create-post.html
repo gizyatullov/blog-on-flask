@@ -4,7 +4,7 @@
     <form method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
 
-        {{ form.title.label(class="form-control-label") }}
+        {{ form.title.label(class="form-control-label text-center fs-4 bg-info") }}
         {% if form.title.errors %}
             {{ form.title(class="form-control form-control-lg is-invalid") }}
             {% for error in form.title.errors %}
@@ -13,24 +13,27 @@
         {% else %}
             {{ form.title(class="form-control form-control-lg") }}
         {% endif %}
+        <br>
 
-        {{ form.content.label(class="form-control-label") }}
+        {{ form.content.label(class="form-control-label text-center fs-4 bg-info") }}
         {% if form.content.errors %}
             {{ form.content(class="form-control form-control-lg is-invalid") }}
             {% for error in form.content.errors %}
                 <span>{{ error }}</span>
             {% endfor %}
         {% else %}
-            {{ form.content(class="form-control form-control-lg") }}
+            {{ form.content(class="form-control form-control-lg", style="text-align: left;") }}
         {% endif %}
+        <br>
 
-        {{ form.photo.label() }}
-        {{ form.photo(class="form-control-file") }}
+        {{ form.photo.label(class="text-center fs-4 bg-info") }}<br><br>
+        {{ form.photo(class="form-control-file fs-5") }}
         {% if form.photo.errors %}
             {% for error in form.photo.errors %}
                 <span class="text-danger">{{ error }}</span>
             {% endfor %}
         {% endif %}
+        <br>
 
         <br>
         {{ form.submit(class="btn btn-outline-info") }}

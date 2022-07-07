@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <h1 class="fs-2">Авторизация</h1>
     <form method="post">
         {{ form.hidden_tag() }}
 
-        {{ form.email.label(class="form-control-label") }}
+        {{ form.email.label(class="form-control-label fs-4") }}
         {% if form.email.errors %}
             {{ form.email(class="form-control form-control-lg is-invalid") }}
             {% for error in form.email.errors %}
@@ -14,7 +15,7 @@
             {{ form.email(class="form-control form-control-lg") }}
         {% endif %}
 
-        {{ form.password.label(class="form-control-label") }}
+        {{ form.password.label(class="form-control-label fs-4") }}
         {% if form.password.errors %}
             {{ form.password(class="form-control form-control-lg is-invalid") }}
             {% for error in form.password.errors %}
@@ -25,6 +26,7 @@
         {% endif %}
         <br>
         {{ form.submit(class="btn btn-outline-info") }}
+        <br>
         <br>
         <div>
             <small style="font-size: 15px; font-weight: 500;">

@@ -6,50 +6,32 @@
     <div id="menubar">
         <ul id="menu">
             <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
-            <li class="{% if request.path == url_for('main.index') %}current{% endif %}"><a
+            <li class="{% if request.path == url_for('main.index') %}current{% endif %} fs-6"><a
                     href="{{ url_for('main.index') }}">Главная</a></li>
 
 
             {% if current_user.is_authenticated %}
-                <li class="{% if request.path == url_for('posts.all_post') %}current{% endif %}"><a
+                <li class="{% if request.path == url_for('posts.all_post') %}current{% endif %} fs-6"><a
                         href="{{ url_for('posts.all_post') }}">Посты</a></li>
 
-                <li class="{% if request.path == url_for('posts.new_post') %}current{% endif %}"><a
+                <li class="{% if request.path == url_for('posts.new_post') %}current{% endif %} fs-6"><a
                         href="{{ url_for('posts.new_post') }}">Новый пост</a></li>
 
-                <li class="{% if request.path == url_for('users.account') %}current{% endif %}"><a
+                <li class="{% if request.path == url_for('users.account') %}current{% endif %} fs-6"><a
                         href="{{ url_for('users.account') }}"><span>Привет, {{ current_user.username }}!</span></a></li>
 
-                <li><a href="{{ url_for('users.logout') }}"><span>Выйти</span></a></li>
+                <li class="fs-6"><a href="{{ url_for('users.logout') }}"><span>Выйти</span></a></li>
 
             {% else %}
-                <li class="{% if request.path == url_for('users.register') %}current{% endif %}"><a
+                <li class="{% if request.path == url_for('users.register') %}current{% endif %} fs-6"><a
                         href="{{ url_for('users.register') }}">Присоединиться</a></li>
-                <li class="{% if request.path == url_for('users.login') %}current{% endif %}"><a
+                <li class="{% if request.path == url_for('users.login') %}current{% endif %} fs-6"><a
                         href="{{ url_for('users.login') }}">Войти</a></li>
             {% endif %}
 
 
-            <li class="{% if request.path == url_for('contacts.index') %}current{% endif %}"><a
+            <li class="{% if request.path == url_for('contacts.index') %}current{% endif %} fs-6"><a
                     href="{{ url_for('contacts.index') }}">Контакты</a></li>
         </ul>
     </div>
 </div>
-
-{#<nav class="navbar navbar-expand-lg bg-light">#}
-{#    <div class="container-fluid">#}
-{#        <a class="navbar-brand" href="#">Navbar</a>#}
-{#        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"#}
-{#                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">#}
-{#            <span class="navbar-toggler-icon"></span>#}
-{#        </button>#}
-{#        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">#}
-{#            <div class="navbar-nav">#}
-{#                <a class="nav-link active" aria-current="page" href="#">Home</a>#}
-{#                <a class="nav-link" href="#">Features</a>#}
-{#                <a class="nav-link" href="#">Pricing</a>#}
-{#                <a class="nav-link disabled">Disabled</a>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#</nav>#}

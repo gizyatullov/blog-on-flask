@@ -168,12 +168,12 @@ ul#menu li a:hover
 { color: #F14E23;}
 
 #site_content
-{ width: 950px;
+{ max-width: 950px;
   overflow: hidden;
   margin: 0 auto 0 auto;
   padding: 0;
   background: #fff;
-  border: 1px solid #E7E7E7;} 
+  border: 1px solid #E7E7E7;}
 
 #sidebar_container
 { float: right;
@@ -202,21 +202,25 @@ ul#menu li a:hover
   vertical-align: middle; 
   margin: -27px 0 -60px -30px;}
 
-#content
-{ text-align: left;
-  width: 630px;
-  padding: 25px 0 5px 25px;
-  margin: 0;}
+/*#content*/
+/*{ text-align: left;*/
+/*  max-width: 950px;*/
+/*  padding: 25px 0 5px 25px;*/
+/*  margin: 0;*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  flex-direction: column;*/
+/*}*/
 
-#content ul
-{ margin: 2px 0 22px 0px;}
+/*#content ul*/
+/*{ margin: 2px 0 22px 0px;}*/
 
-#content ul li
-{ list-style-type: none;
-  background: url(bullet.png) no-repeat;
-  margin: 0 0 6px 0; 
-  padding: 0 0 4px 25px;
-  line-height: 1.5em;}
+/*#content ul li*/
+/*{ list-style-type: none;*/
+/*  background: url(bullet.png) no-repeat;*/
+/*  margin: 0 0 6px 0; */
+/*  padding: 0 0 4px 25px;*/
+/*  line-height: 1.5em;}*/
 
 #footer
 { clear: both;
@@ -255,7 +259,7 @@ ul#menu li a:hover
   width: 170px; 
   text-align: left;}
   
-.form_settings input, .form_settings textarea
+.form_settings input, .form_settings
 { width: 252px; 
   font: 100% 'trebuchet ms', arial;
   border: 0;
@@ -275,7 +279,7 @@ ul#menu li a:hover
   background: #fff;
   font: normal 140% 'Yanone Kaffeesatz', sans-serif;}
 
-.form_settings textarea, .form_settings select
+.form_settings, .form_settings select
 { font: 100% 'trebuchet ms', arial; 
   border: 1px solid #eee;
   padding: 5px 10px;
