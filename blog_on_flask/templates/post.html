@@ -59,7 +59,6 @@
 
                 {% if comment.user_uid == current_user.uid %}
                     <form action="{{ url_for('posts.del_comment', comment_uid=comment.uid) }}" method="post">
-                        {#                        {{ form.hidden_tag() }}#}
                         <input type="submit" value="Удалить">
                     </form>
                 {% endif %}
