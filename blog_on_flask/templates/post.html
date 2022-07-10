@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <img class="rounded-circle article-img" alt="#"
+    <img class="rounded-circle article-img" alt="..."
          src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
 
     <a class="mr-2"
@@ -45,4 +45,46 @@
             </div>
         </div>
     </div>
+    <br>
+    <br>
+
+    {% if post.comments.count() > 0 %}
+        <h2>Комментарии</h2>
+        <p>
+            {% for comment in post.comments|reverse %}
+                <p>{{ comment.content }}</p>
+                <p>
+                    <span>{{ comment.user_uid.username }}</span><span>{{ comment.created_at.strftime('%A, %d, %B, %Y, %I:%M %p') }}</span>
+                </p>
+
+                {% if comment.user_uid == current_user.uid %}
+                    <form action="{{ url_for('posts.del_comment', comment_uid=comment.uid) }}" method="post">
+                        {#                        {{ form.hidden_tag() }}#}
+                        <input type="submit" value="Удалить">
+                    </form>
+                {% endif %}
+                <hr>
+            {% endfor %}
+        </p>
+    {% endif %}
+
+    <form method="post">
+        {{ comment_form.hidden_tag() }}
+        <h2>Оставить комментарий</h2>
+
+        {{ comment_form.content.label(class="form-control-label text-center fs-4 bg-info") }}
+        {% if comment_form.content.errors %}
+            {{ comment_form.content(class="form-control form-control-lg is-invalid") }}
+            {% for error in comment_form.content.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        {% else %}
+            {{ comment_form.content(class="form-control form-control-lg") }}
+        {% endif %}
+
+        <br>
+        {{ comment_form.submit(class="btn btn-outline-info") }}
+        <br>
+
+    </form>
 {% endblock %}

@@ -2,8 +2,8 @@ from flask import render_template, url_for, flash, redirect, request, abort, Blu
 from flask_login import current_user, login_required
 
 from blog_on_flask import db
-from blog_on_flask.models import Post
-from .forms import PostForm
+from blog_on_flask.models import Post, Comment
+from .forms import PostForm, CommentForm
 from .utils import save_photo_post
 
 posts = Blueprint('posts', __name__)
@@ -40,14 +40,24 @@ def new_post():
     return render_template('create-post.html', **context)
 
 
-@posts.route('/post/<string:post_uid>', methods=('GET',))
+@posts.route('/post/<string:post_uid>', methods=('GET', 'POST',))
 @login_required
 def post(post_uid):
     post = Post.query.get_or_404(post_uid)
+    comment_form = CommentForm()
+    if comment_form.validate_on_submit():
+        comment = Comment(content=comment_form.content.data, post_uid=post_uid, user_uid=current_user.uid)
+        db.session.add(comment)
+        db.session.commit()
+        flash('Ваш комментарий добавлен!', 'success')
+        return redirect(url_for('posts.post', post_uid=post_uid))
+
     context = {
         'page_title': f'Подробно про пост: {post.title}',
         'post': post,
+        'comment_form': comment_form,
     }
+
     return render_template('post.html', **context)
 
 
@@ -84,3 +94,16 @@ def delete_post(post_uid):
     db.session.commit()
     flash('Ваш пост был удален!', 'success')
     return redirect(url_for('posts.all_post'))
+
+
+@posts.route('/post/comment-del/<string:comment_uid>', methods=('POST',))
+@login_required
+def del_comment(comment_uid):
+    comment = Comment.query.get_or_404(comment_uid)
+    if comment.user_uid == current_user.uid:
+        post_uid = comment.post_uid
+        db.session.delete(comment)
+        db.session.commit()
+        flash('Ваш комментарий был удален!', 'success')
+        return redirect(url_for('posts.post', post_uid=post_uid))
+    return redirect(url_for('errors.error_403'))

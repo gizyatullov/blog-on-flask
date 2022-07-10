@@ -61,6 +61,15 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=False)
     photo = db.Column(db.String(256), nullable=True)
     user_uid = db.Column(db.String(36), db.ForeignKey('user.uid'), nullable=False)
+    comments = db.relationship('Comment', backref='title', lazy='dynamic')
 
     def __repr__(self):
         return f'Пост: {self.title} | {self.date_posted}'
+
+
+class Comment(db.Model):
+    uid = db.Column(db.String(36), primary_key=True, default=uuid4)
+    content = db.Column(db.String(512))
+    post_uid = db.Column(db.String(36), db.ForeignKey('post.uid'), nullable=False)
+    user_uid = db.Column(db.String(36), db.ForeignKey('user.uid'), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
