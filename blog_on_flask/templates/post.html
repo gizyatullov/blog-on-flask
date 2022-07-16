@@ -13,11 +13,22 @@
             <small>Опубликовано {{ post.date_posted.strftime('%A, %d %B %Y %I:%M %p') }}</small>
             <br>
             {% if post.photo %}
-                <img src="{{ url_for('static', filename='post_photos/' + post.photo) }}" alt="#">
+                <img src="{{ url_for('static', filename='post_photos/' + post.photo) }}" alt="...">
             {% endif %}
             <br>
             <p class="card-text">{{ post.content }}</p>
         </div>
+
+        <form action="{{ url_for('posts.like_post', post_uid=post.uid) }}" method="post">
+            {{ like_form.hidden_tag() }}
+            <button type="submit" style="border: none; background-color: #FFFFFF;">
+                <img style="width: 32px;" src="{{ url_for('static', filename='images/like.svg') }}" alt="...">
+                {{ like_count if like_count > 0 }}
+            </button>
+        </form>
+
+
+        <br>
 
         {% if post.author == current_user %}
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.update_post', post_uid=post.uid) }}">Обновить</a>
@@ -33,6 +44,7 @@
                     <h5 class="modal-title">Modal title</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+
                 <div class="modal-body">
                     <p>Удалить пост «{{ post.title }}»?</p>
                 </div>

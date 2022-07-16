@@ -14,3 +14,7 @@ class PostForm(FlaskForm):
 class CommentForm(FlaskForm):
     content = TextAreaField('Текст Вашего комментария', validators=(DataRequired(),))
     submit = SubmitField('Создать')
+
+
+class LikeForm(FlaskForm):
+    submit = SubmitField('Создать')

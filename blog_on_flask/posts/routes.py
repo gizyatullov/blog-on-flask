@@ -2,8 +2,8 @@ from flask import render_template, url_for, flash, redirect, request, abort, Blu
 from flask_login import current_user, login_required
 
 from blog_on_flask import db
-from blog_on_flask.models import Post, Comment
-from .forms import PostForm, CommentForm
+from blog_on_flask.models import Post, Comment, Like
+from .forms import PostForm, CommentForm, LikeForm
 from .utils import save_photo_post
 
 posts = Blueprint('posts', __name__)
@@ -56,6 +56,8 @@ def post(post_uid):
         'page_title': f'Подробно про пост: {post.title}',
         'post': post,
         'comment_form': comment_form,
+        'like_form': LikeForm(),
+        'like_count': Like.query.filter_by(post_uid=post_uid).count()
     }
 
     return render_template('post.html', **context)
@@ -107,3 +109,23 @@ def del_comment(comment_uid):
         flash('Ваш комментарий был удален!', 'success')
         return redirect(url_for('posts.post', post_uid=post_uid))
     return redirect(url_for('errors.error_403'))
+
+
+@posts.route('/post/<string:post_uid>/like', methods=('POST',))
+@login_required
+def like_post(post_uid):
+    post = Post.query.get_or_404(post_uid)
+
+    if post.author == current_user:
+        flash('Вы не можете поставить лайк т.к. пост создали Вы сами', 'warning')
+    elif Like.query.filter_by(user_uid=current_user.uid, post_uid=post_uid).count():
+        Like.query.filter_by(user_uid=current_user.uid, post_uid=post_uid).delete()
+        db.session.commit()
+        flash('Вам больше не нравится этот пост.', 'success')
+    else:
+        like = Like(user_uid=current_user.uid, post_uid=post_uid)
+        db.session.add(like)
+        db.session.commit()
+        flash('Вам нравится этот пост.', 'success')
+
+    return redirect(url_for('posts.post', post_uid=post_uid))

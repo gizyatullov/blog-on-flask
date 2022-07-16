@@ -73,3 +73,9 @@ class Comment(db.Model):
     post_uid = db.Column(db.String(36), db.ForeignKey('post.uid'), nullable=False)
     user_uid = db.Column(db.String(36), db.ForeignKey('user.uid'), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+
+class Like(db.Model):
+    uid = db.Column(db.String(36), primary_key=True, default=uuid4)
+    user_uid = db.Column(db.String(36), db.ForeignKey('user.uid'), nullable=False)
+    post_uid = db.Column(db.String(36), db.ForeignKey('post.uid'), nullable=False)
