@@ -76,6 +76,7 @@ class Comment(db.Model):
 
 
 class Like(db.Model):
-    uid = db.Column(db.String(36), primary_key=True, default=uuid4)
+    __table_args__ = (db.PrimaryKeyConstraint('user_uid', 'post_uid', name='CompositePkForLike'),)
+
     user_uid = db.Column(db.String(36), db.ForeignKey('user.uid'), nullable=False)
     post_uid = db.Column(db.String(36), db.ForeignKey('post.uid'), nullable=False)
